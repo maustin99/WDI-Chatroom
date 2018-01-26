@@ -17,12 +17,14 @@ $sendBtn.on('click', sendMessage )
 function sendMessage(){
 
     var outboundMsg = $('#messageField').val() + "  - " + $('#userField').val()
-    socket.emit('chat message' , outboundMsg)
-    //socket.emit('send user name' , )
-    console.log("Ping!")
-    $('#messageField').val('')
-    console.log('ping' , $('#messageField').val())
-}
+    if ($('#messageField').val() != '' && $('#userField').val() != ''){
+            socket.emit('chat message' , outboundMsg)
+            //socket.emit('send user name' , )
+            console.log("Ping!")
+            $('#messageField').val('')
+            console.log('ping' , $('#messageField').val())
+    }else alert('All fields must be filled')
+} //END Send Message
 
 socket.on('connect', function(){
     console.log('Socket On: connected')
