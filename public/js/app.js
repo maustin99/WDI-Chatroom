@@ -16,13 +16,23 @@ $sendBtn.on('click', sendMessage )
 
 function sendMessage(){
 
+    //better solution
+    var data = {
+        name: $('#userField').val() ,
+        message: $('#messageField').val()  
+    }
+    //^^^^^^^^^^^^^-------------
+
+    //my solution
     var outboundMsg = $('#messageField').val() + "  - " + $('#userField').val()
+    //^^^^^^^^^^^^^^-------------
+
     if ($('#messageField').val() != '' && $('#userField').val() != ''){
-            socket.emit('chat message' , outboundMsg)
+            socket.emit('chat message' , data)
             //socket.emit('send user name' , )
-            console.log("Ping!")
+            //console.log("Ping!")
             $('#messageField').val('')
-            console.log('ping' , $('#messageField').val())
+            console.log('Ping!' , $('#messageField').val())
     }else alert('All fields must be filled')
 } //END Send Message
 
@@ -34,7 +44,7 @@ socket.on('transmited message', function(msg){
     //alert()
     console.log('transmitted msg:  ', msg)
 
-    $chatDiv.prepend( `<p>${msg}</p>` );
+    $chatDiv.prepend( `<p>${msg.message}   - ${msg.name}</p>` );
     
 
 })
